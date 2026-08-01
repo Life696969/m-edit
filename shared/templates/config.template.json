@@ -1,0 +1,53 @@
+{
+  "schema_version": 2,
+  "profile": "generic",
+  "custom_profile_path": null,
+  "mode": "auto",
+  "project_boundary": null,
+  "output_root": "m-edit-output",
+  "source_hash_mode": "full",
+  "instruction_policy": {
+    "max_parent_depth": 6,
+    "allow_project_keyword_files": true,
+    "allow_ancestor_keyword_files": false
+  },
+  "transcription": {
+    "provider": "auto",
+    "language": "auto",
+    "model": "base",
+    "model_path": null,
+    "existing_caption_globs": ["*.srt", "*.vtt", "*.json"],
+    "word_timestamps": true,
+    "allow_network": false
+  },
+  "workflow": {
+    "one_clip_at_a_time": true,
+    "transcript_approval_required": true,
+    "story_cut_approval_required": true,
+    "preview_approval_required": true,
+    "merge_requires_explicit_request": true
+  },
+  "assets": {
+    "allow_network": false,
+    "require_source_ledger": true
+  },
+  "render": {
+    "aspect_ratio": "auto",
+    "width": null,
+    "height": null,
+    "fps": null,
+    "codec": "h264",
+    "container": "mp4",
+    "require_audio": "auto",
+    "preview_scale": 0.5,
+    "preview_crf": 28,
+    "final_crf": 18,
+    "fidelity_min_ssim": 0.95
+  },
+  "verification": {
+    "ffmpeg_timeout_seconds": 300,
+    "full_decode": true,
+    "generate_contact_sheet": true,
+    "compare_final_to_preview": true
+  }
+}

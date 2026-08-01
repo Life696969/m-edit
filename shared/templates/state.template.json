@@ -1,0 +1,44 @@
+{
+  "schema_version": 2,
+  "phase": "uninitialized",
+  "project_root": null,
+  "created_at": null,
+  "updated_at": null,
+  "context": {
+    "instruction_manifest_path": ".m-edit/instruction_manifest.json",
+    "instruction_manifest_hash": null,
+    "config_path": ".m-edit/config.json",
+    "config_hash": null,
+    "clip_inventory_path": ".m-edit/clip_inventory.json",
+    "clip_inventory_hash": null,
+    "context_digest": null
+  },
+  "current_clip": null,
+  "clip_order": [],
+  "transcript": {
+    "path": "transcript.md",
+    "hash": null,
+    "approved_hash": null,
+    "approved_at": null,
+    "approval_receipt_id": null
+  },
+  "editing_plan": {"path": "editing_plan.md", "hash": null},
+  "guide": {"path": "video_editing_guide.md", "hash": null},
+  "story_cut": {
+    "required": false,
+    "plan_path": null,
+    "preview_path": null,
+    "preview_hash": null,
+    "approved_hash": null,
+    "approval_receipt_id": null
+  },
+  "clips": {},
+  "merge": {
+    "approved": false,
+    "approval_receipt_id": null,
+    "path": null,
+    "hash": null,
+    "verification_path": null
+  },
+  "history": []
+}

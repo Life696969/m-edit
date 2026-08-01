@@ -1,0 +1,10 @@
+{
+  "name": "m-edit",
+  "description": "Generic approval-gated Remotion workflow for transcription, captions, story cuts, previews, verified finals, and optional merging.",
+  "version": "1.0.0-rc.1",
+  "author": {"name": "m-edit contributors"},
+  "license": "MIT",
+  "keywords": ["remotion", "video-editing", "captions", "subtitles", "transcription", "agent-skills"],
+  "skills": "./skills",
+  "commands": "./commands"
+}

@@ -1,0 +1,88 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "profile", "mode", "output_root", "source_hash_mode", "instruction_policy", "transcription", "workflow", "assets", "render", "verification"],
+  "properties": {
+    "schema_version": {"const": 2},
+    "profile": {"type": "string", "minLength": 1},
+    "custom_profile_path": {"type": ["string", "null"]},
+    "mode": {"type": "string", "minLength": 1},
+    "project_boundary": {"type": ["string", "null"]},
+    "output_root": {"type": "string", "minLength": 1},
+    "source_hash_mode": {"enum": ["full", "stat"]},
+    "instruction_policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["max_parent_depth", "allow_project_keyword_files", "allow_ancestor_keyword_files"],
+      "properties": {
+        "max_parent_depth": {"type": "integer", "minimum": 0, "maximum": 20},
+        "allow_project_keyword_files": {"type": "boolean"},
+        "allow_ancestor_keyword_files": {"type": "boolean"}
+      }
+    },
+    "transcription": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["provider", "language", "model", "model_path", "existing_caption_globs", "word_timestamps"],
+      "properties": {
+        "provider": {"enum": ["auto", "existing", "openai-whisper", "faster-whisper", "whisper-cpp", "host"]},
+        "language": {"type": "string"},
+        "model": {"type": "string"},
+        "model_path": {"type": ["string", "null"]},
+        "existing_caption_globs": {"type": "array", "items": {"type": "string"}},
+        "word_timestamps": {"type": "boolean"}
+      }
+    },
+    "workflow": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["one_clip_at_a_time", "transcript_approval_required", "story_cut_approval_required", "preview_approval_required", "merge_requires_explicit_request"],
+      "properties": {
+        "one_clip_at_a_time": {"const": true},
+        "transcript_approval_required": {"const": true},
+        "story_cut_approval_required": {"const": true},
+        "preview_approval_required": {"const": true},
+        "merge_requires_explicit_request": {"const": true}
+      }
+    },
+    "assets": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["allow_network", "require_source_ledger"],
+      "properties": {
+        "allow_network": {"type": "boolean"},
+        "require_source_ledger": {"type": "boolean"}
+      }
+    },
+    "render": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["aspect_ratio", "width", "height", "fps", "codec", "container", "require_audio", "preview_scale", "preview_crf", "final_crf", "fidelity_min_ssim"],
+      "properties": {
+        "aspect_ratio": {"enum": ["auto", "vertical", "horizontal", "square", "custom"]},
+        "width": {"type": ["integer", "null"], "minimum": 1},
+        "height": {"type": ["integer", "null"], "minimum": 1},
+        "fps": {"type": ["number", "null"], "exclusiveMinimum": 0},
+        "codec": {"type": "string"},
+        "container": {"type": "string"},
+        "require_audio": {"enum": ["auto", true, false]},
+        "preview_scale": {"type": "number", "exclusiveMinimum": 0, "maximum": 1},
+        "preview_crf": {"type": "integer", "minimum": 0, "maximum": 51},
+        "final_crf": {"type": "integer", "minimum": 0, "maximum": 51},
+        "fidelity_min_ssim": {"type": "number", "minimum": 0, "maximum": 1}
+      }
+    },
+    "verification": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["ffmpeg_timeout_seconds", "full_decode", "generate_contact_sheet", "compare_final_to_preview"],
+      "properties": {
+        "ffmpeg_timeout_seconds": {"type": "integer", "minimum": 10, "maximum": 7200},
+        "full_decode": {"type": "boolean"},
+        "generate_contact_sheet": {"type": "boolean"},
+        "compare_final_to_preview": {"type": "boolean"}
+      }
+    }
+  }
+}

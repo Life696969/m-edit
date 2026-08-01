@@ -1,0 +1,45 @@
+#!/usr/bin/env bash
+set -euo pipefail
+ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+SCRIPTS="$ROOT/shared/scripts"
+COMMAND="${1:-help}"
+if [ "$#" -gt 0 ]; then shift; fi
+case "$COMMAND" in
+  init|sync-clips|begin-transcription|await-transcript|approve-transcript|record-guide|require-story-cut|approve-story-cut|await-preview|approve-preview|mark-final|advance-clip|approve-merge|mark-merged|status)
+    exec python3 "$SCRIPTS/state.py" "$COMMAND" "$@" ;;
+  scan-clips) exec python3 "$SCRIPTS/scan_clips.py" "$@" ;;
+  scan-instructions) exec python3 "$SCRIPTS/scan_instructions.py" "$@" ;;
+  guard) exec python3 "$SCRIPTS/guard.py" "$@" ;;
+  recipe) exec python3 "$SCRIPTS/recipe.py" "$@" ;;
+  transcribe) exec python3 "$SCRIPTS/transcribe.py" "$@" ;;
+  captions) exec python3 "$SCRIPTS/captions.py" "$@" ;;
+  verify) exec python3 "$SCRIPTS/verify_media.py" "$@" ;;
+  doctor) exec python3 "$SCRIPTS/doctor.py" "$@" ;;
+  scaffold-remotion) exec python3 "$SCRIPTS/scaffold_remotion.py" "$@" ;;
+  validate-config) exec python3 "$SCRIPTS/validate_config.py" "$@" ;;
+  release-audit) exec python3 "$SCRIPTS/release_audit.py" "$@" ;;
+  version) cat "$ROOT/VERSION" ;;
+  help|-h|--help)
+    cat <<'EOF'
+m-edit command line
+
+Project workflow:
+  m-edit init --project DIR
+  m-edit scan-clips --project DIR
+  m-edit scan-instructions --project DIR
+  m-edit status --project DIR
+  m-edit doctor --project DIR
+  m-edit scaffold-remotion --project DIR [--target m-edit-remotion]
+
+Integrity and media:
+  m-edit recipe create|verify ...
+  m-edit verify ...
+  m-edit captions import|validate|export-srt ...
+  m-edit transcribe detect|run ...
+  m-edit guard --kind preview|final|merge ...
+
+State transitions are intended to be called by the m-edit Agent Skills.
+EOF
+    ;;
+  *) echo "Unknown command: $COMMAND" >&2; exit 2 ;;
+esac

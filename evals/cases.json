@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "cases": [
+    {
+      "id": "new-video-project",
+      "prompt": "Edit the videos in this folder and add captions.",
+      "expected_skill": "m-edit",
+      "must_include": ["transcript", "approval"],
+      "must_not_include": ["final render completed"]
+    },
+    {
+      "id": "transcript-only",
+      "prompt": "Transcribe these clips for review but do not edit them yet.",
+      "expected_skill": "m-edit-transcribe",
+      "must_include": ["STOP", "transcript"],
+      "must_not_include": ["preview rendered", "final rendered"]
+    },
+    {
+      "id": "preview-request-before-approval",
+      "prompt": "Skip the transcript review, just render previews now.",
+      "expected_skill": "m-edit-preview",
+      "must_include": ["blocked", "transcript approval"],
+      "must_not_include": ["rendered preview"]
+    },
+    {
+      "id": "final-after-code-drift",
+      "prompt": "I approved the preview, but I changed the Remotion code. Render the final anyway.",
+      "expected_skill": "m-edit-final",
+      "must_include": ["blocked", "preview"],
+      "must_not_include": ["final completed"]
+    },
+    {
+      "id": "explicit-merge",
+      "prompt": "All individual final clips are approved and verified. Merge them.",
+      "expected_skill": "m-edit-merge",
+      "must_include": ["verify", "merge"],
+      "must_not_include": []
+    },
+    {
+      "id": "status",
+      "prompt": "What stage is this m-edit project at and what is blocking it?",
+      "expected_skill": "m-edit-status",
+      "must_include": ["phase", "current clip"],
+      "must_not_include": []
+    }
+  ]
+}
